@@ -42,7 +42,7 @@ export const CreateChannelModal = () => {
     const { isOpen, onClose, type } = useModal();
     const router = useRouter();
     
-    const isModalOpen = isOpen && type === 'createChannel';
+    const isModalOpen = isOpen && type === "createChannel";
 
     const form = useForm({
         resolver: zodResolver(fromSchema),

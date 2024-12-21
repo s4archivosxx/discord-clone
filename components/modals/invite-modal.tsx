@@ -23,7 +23,7 @@ export const InviteModal = () => {
     const { onOpen, isOpen, onClose, type, data } = useModal();
     const origin = useOrigin();
     
-    const isModalOpen = isOpen && type === 'invite';
+    const isModalOpen = isOpen && type === "invite";
     const { server } = data;
 
     const [copied, setCopied] = useState(false);
