@@ -1,6 +1,16 @@
 "use client";
 
 import { Search } from "lucide-react";
+import { useState } from "react";
+
+import { 
+    CommandDialog,
+    CommandEmpty,
+    CommandList,
+    CommandInput,
+    CommandGroup,
+    CommandItem
+} from "@/components/ui/command";
 
 interface ServerSearchProps {
     data: {
@@ -17,9 +27,12 @@ interface ServerSearchProps {
 export const ServerSearch = ({
     data
 }: ServerSearchProps) => {
+    const [open, setOpen] = useState(false);
+
     return (
         <>
             <button
+                onClick={() => setOpen(true)}
                 className="group px-2 py-2 rounded-md flex items-center gap-x-2 w-full hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition"
             >
                 <Search className="w-4 h-4 text-zinc-500 dark:text-zinc-400" />
@@ -34,6 +47,29 @@ export const ServerSearch = ({
                     <span className="text-xs">CTRL</span>K
                 </kbd>
             </button>
+            <CommandDialog open={open} onOpenChange={setOpen}>
+                <CommandInput placeholder="Search all channels and members" />
+                <CommandList>
+                    <CommandEmpty>
+                        No Resuels found
+                    </CommandEmpty>
+                    {data.map(({label, type, data}) => {
+                        if (!data?.length) return null;
+                        return (
+                            <CommandGroup key={label} heading={label}>
+                                {data?.map(({id, icon, name}) => {
+                                    return (
+                                        <CommandItem key={id}>
+                                            {icon}
+                                            <span>{name}</span>
+                                        </CommandItem>
+                                    )
+                                })}
+                            </CommandGroup>
+                        )
+                    })}
+                </CommandList>
+            </CommandDialog>
         </>
     )
 }

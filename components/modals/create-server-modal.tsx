@@ -1,6 +1,6 @@
 "use client";
 
-import axios from "axios"
+import axios from "axios";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -56,7 +56,7 @@ export const CreateServerModal = () => {
 
     const onSubmit = async (values: z.infer<typeof fromSchema>) => {
         try{
-            await axios.post("/api/servers/", values)
+            await axios.post("/api/servers", values)
 
             form.reset();
             router.refresh();
